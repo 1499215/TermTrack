@@ -52,7 +52,7 @@
 
         // Update existing JavaScript
         // begining of "How It Works" section js
-function initializeTooltips() {
+  function initializeTooltips() {
     const steps = document.querySelectorAll('.step');
     
     steps.forEach(step => {
@@ -89,20 +89,136 @@ function initializeTooltips() {
 
     
 
-  // Update modal function
-  function showModal(type) {
-    const modal = document.getElementById('previewModal');
-    const img = document.getElementById('modalImage');
-    const loader = modal.querySelector('.loader');
+    // Update modal function
+    function showModal(type) {
+      const modal = document.getElementById('previewModal');
+      const img = document.getElementById('modalImage');
+      const loader = modal.querySelector('.loader');
 
-    img.classList.remove('loaded');
-    loader.style.display = 'block';
+      img.classList.remove('loaded');
+      loader.style.display = 'block';
 
-    img.onload = () => {
-      img.classList.add('loaded');
-      loader.style.display = 'none';
-    };
-  }
-
-
+      img.onload = () => {
+        img.classList.add('loaded');
+        loader.style.display = 'none';
+      };
+    }
   }//end of how it works js
+
+  // Signin Signup Authentication JS
+        function showForm(formType) {
+            document.querySelectorAll('.auth-form').forEach(form => {
+                form.classList.remove('active');
+            });
+            document.querySelectorAll('.auth-switch button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            document.getElementById(`${formType}-form`).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        function togglePassword(fieldId) {
+            const passwordField = document.getElementById(fieldId);
+            const toggleIcon = event.target;
+            
+            if(passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.classList.replace('fa-eye', 'fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.classList.replace('fa-eye-slash', 'fa-eye');
+            }
+        }
+
+        // Password Strength Checker
+        document.getElementById('signup-password').addEventListener('input', function(e) {
+            const strengthBar = document.getElementById('strength-bar');
+            const password = e.target.value;
+            let strength = 0;
+
+            if(password.match(/[A-Z]/)) strength++;
+            if(password.match(/[0-9]/)) strength++;
+            if(password.match(/[^A-Za-z0-9]/)) strength++;
+            if(password.length >= 8) strength++;
+
+            strengthBar.style.width = `${(strength/4)*100}%`;
+            strengthBar.style.background = strength < 2 ? '#ff4444' : 
+                                         strength < 4 ? '#ffbb33' : 
+                                         '#00C851';
+        });
+
+        // Form Validation
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Add your backend integration here
+                console.log('Form submitted:', this.id);
+            });
+        });
+
+
+
+
+        // Handle Signup
+document.getElementById('signup-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        school_name: document.querySelector('#signup-form input[type="text"]').value,
+        email: document.querySelector('#signup-form input[type="email"]').value,
+        password: document.querySelector('#signup-form input[type="password"]').value
+    };
+
+    try {
+        const response = await fetch('http://localhost:5000/api/register', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if(response.ok) {
+            alert('Registration successful! Please login.');
+            showForm('signin');
+        } else {
+            alert(`Error: ${data.error}`);
+        }
+    } catch (error) {
+        alert('Failed to connect to server');
+    }
+});
+
+// Handle Login
+document.getElementById('signin-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const formData = {
+        email: document.querySelector('#signin-form input[type="email"]').value,
+        password: document.querySelector('#signin-form input[type="password"]').value
+    };
+
+    try {
+        const response = await fetch('http://localhost:5000/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if(response.ok) {
+            localStorage.setItem('token', data.access_token);
+            window.location.href = '/dashboard.html';
+        } else {
+            alert(`Error: ${data.error}`);
+        }
+    } catch (error) {
+        alert('Failed to connect to server');
+    }
+});

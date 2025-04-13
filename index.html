@@ -1,22 +1,26 @@
+<!-- Bismillahir Rahmanir Rahim-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="script" href="js/main_script.js">
+    <link rel="stylesheet" href="css/footer.css">
+    
     <title>TermTrack - School Report Management Made Simple</title>
 </head>
 <body>
     <Section>
         <nav class="nav">
-            <a href="#" class="nav-logo">TermTrack</a>
+            <a href="index.html" class="nav-logo">TermTrack</a>
             <div class="nav-links">
                 <a href="#" class="nav-link">Home</a>
                 <a href="#features" class="nav-link">Features</a>
                 <a href="#workflow" class="nav-link">How it Works</a>
                 <a href="#footer-content" class="nav-link">Contact</a>
-                <button class="sign-in-btn">Sign In</button>
+                <a href="index.html" class="sign-in-btn"> Start for Free </a>
             </div>
         </nav>
     </Section>
@@ -30,7 +34,7 @@
                 <h1>Streamline Academic Reporting for Ghanaian Schools</h1>
                 <p>Transform chaotic paperwork into organized efficiency – revolutionize report card management with TermTrack</p>
                 <div class="cta-buttons">
-                    <a href="login.html" class="cta-button">Start Free Trial</a>
+                    <a href="signin.html" class="cta-button">Start Free Trial</a>
                     <a href="#features" class="cta-button">Learn More</a>
                 </div>
             </div>
@@ -54,54 +58,100 @@
         </div>
     </section>
     <!-- Updated HTML New How it works html-->
-<section class="workflow">
-    <h2 class="workflow-title">How TermTrack Works</h2>
-    <div class="steps-container">
-        <!-- Step 1 -->
-        <div class="step">
-            <div class="step-number">1</div>
-            <div class="step-icon">📥</div>
-            <h3>Input Scores & Attendance</h3>
-            <p>Teachers easily enter student marks through our intuitive interface</p>
-            <div class="step-tooltip">
-                <img src="input-screenshot.jpg" alt="Score input interface preview">
-                <p>Simple spreadsheet-like interface with validation</p>
+    <section class="workflow">
+        <h2 class="workflow-title">How TermTrack Works</h2>
+        <div class="steps-container">
+            <!-- Step 1 -->
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-icon">📥</div>
+                <h3>Input Scores & Attendance</h3>
+                <p>Teachers easily enter student marks through our intuitive interface</p>
+                <div class="step-tooltip">
+                    <img src="input-screenshot.jpg" alt="Score input interface preview">
+                    <p>Simple spreadsheet-like interface with validation</p>
+                </div>
+                <a href="#input-demo" class="learn-more-btn" onclick="showModal('input')">See Example</a>
             </div>
-            <a href="#input-demo" class="learn-more-btn" onclick="showModal('input')">See Example</a>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="step">
-            <div class="step-number">2</div>
-            <div class="step-icon">⚙️</div>
-            <h3>Automated Processing</h3>
-            <p>System calculates grades, positions, and attendance automatically</p>
-            <div class="step-tooltip">
-                <img src="processing-screenshot.jpg" alt="Processing preview">
-                <p>Real-time progress indicators during calculations</p>
+            <!-- Step 2 -->
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-icon">⚙️</div>
+                <h3>Automated Processing</h3>
+                <p>System calculates grades, positions, and attendance automatically</p>
+                <div class="step-tooltip">
+                    <img src="processing-screenshot.jpg" alt="Processing preview">
+                    <p>Real-time progress indicators during calculations</p>
+                </div>
+                <a href="#processing-demo" class="learn-more-btn" onclick="showModal('processing')">View Logic</a>
             </div>
-            <a href="#processing-demo" class="learn-more-btn" onclick="showModal('processing')">View Logic</a>
+            <!-- Steps 3-->
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-icon">📊</div>
+                <h3>Generate Reports</h3>
+                <p>Create professional report cards with customizable templates</p>
+                <div class="step-tooltip">
+                    <img src="processing-screenshot.jpg" alt="Processing preview">
+                    <p>Real-time progress indicators during calculations</p>
+                </div>
+                <a href="#processing-demo" class="learn-more-btn" onclick="showModal('processing')">View Logic</a>
+            </div>
+            <!-- step 4 -->
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-icon">📤</div>
+                <h3>Share & Archive</h3>
+                <p>Securely distribute to parents and archive for future reference</p>
+                <div class="step-tooltip">
+                    <img src="processing-screenshot.jpg" alt="Processing preview">
+                    <p>Real-time progress indicate reports cards being shared and receiving by parent</p>
+                </div>
+                <a href="#processing-demo" class="learn-more-btn" onclick="showModal('processing')">View Logic</a>
+            </div>
         </div>
-
-        <!-- Steps 3 & 4 similar structure -->
-
+    </section>
+    <!-- Preview Modal -->
+    <div class="preview-modal" id="previewModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <img class="report-preview" id="modalImage" src="" alt="Detailed preview">
+        </div>
     </div>
-</section>
+    <!-- begining of enhanced html -->
 
-<!-- Preview Modal -->
-<div class="preview-modal" id="previewModal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <img class="report-preview" id="modalImage" src="" alt="Detailed preview">
+    <!-- Add to HTML -->
+    <svg style="display:none">
+        <!-- Input Interface -->
+        <symbol id="input-interface" viewBox="0 0 300 200">
+        <rect width="300" height="200" fill="#F5F5F5"/>
+        <rect x="20" y="30" width="260" height="30" rx="4" fill="#fff"/>
+        <rect x="20" y="80" width="120" height="30" rx="4" fill="#28A745" opacity="0.2"/>
+        <rect x="160" y="80" width="120" height="30" rx="4" fill="#0056B3" opacity="0.2"/>
+        <text x="150" y="160" text-anchor="middle" fill="#00274D" font-size="14">Sample Input Form</text>
+        </symbol>
+
+        <!-- Processing Screen -->
+        <symbol id="processing-screen" viewBox="0 0 300 200">
+        <rect width="300" height="200" fill="#F5F5F5"/>
+        <circle cx="150" cy="100" r="40" fill="none" stroke="#0056B3" stroke-width="4">
+            <animate attributeName="stroke-dasharray" values="0 250;250 0" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <text x="150" y="160" text-anchor="middle" fill="#00274D" font-size="14">Processing Data...</text>
+        </symbol>
+    </svg>
+    <!-- Add to Modal HTML -->
+    <div class="preview-modal" id="previewModal">
+        <div class="modal-content">
+            <div class="loader">
+                <div class="spinner"></div>
+            </div>
+            <span class="close-modal">&times;</span>
+            <img class="report-preview" id="modalImage" src="" alt="Detailed preview">
+        </div>
     </div>
-</div>
-<!-- Ends of Updated HTML New How it works html-->
-
-
-
-
-
-
+    <!-- ending of enhancement html -->
+    <!-- Ends of Updated HTML New How it works html-->
 
     <!-- Testimonials Section -->
     <section class="testimonials">
@@ -140,90 +190,13 @@
         </div>
     </section>
 
-
-    
-
-
-
-    <!-- Workflow Section 
-    <section class="workflow" id="workflow">
-        <h2 class="workflow-title">How TermTrack Works</h2>
-        <div class="steps-container">-->
-            <!-- Step 1 
-            <div class="step">
-                <div class="step-number">1</div>
-                <div class="step-icon">📥</div>
-                <h3>Input Scores & Attendance</h3>
-                <p>Teachers easily enter student marks through our intuitive interface</p>
-            </div>-->
-
-            <!-- Step 2 
-            <div class="step">
-                <div class="step-number">2</div>
-                <div class="step-icon">⚙️</div>
-                <h3>Automated Processing</h3>
-                <p>System calculates grades, positions, and attendance automatically</p>
-            </div>-->
-
-            <!-- Step 3 
-            <div class="step">
-                <div class="step-number">3</div>
-                <div class="step-icon">📊</div>
-                <h3>Generate Reports</h3>
-                <p>Create professional report cards with customizable templates</p>
-            </div>-->
-
-            <!-- Step 4 
-            <div class="step">
-                <div class="step-number">4</div>
-                <div class="step-icon">📤</div>
-                <h3>Share & Archive</h3>
-                <p>Securely distribute to parents and archive for future reference</p>
-            </div>
-        </div>
-    </section>-->
-
-    <!-- begining of enhancement html -->
-
-    <!-- Add to HTML -->
-<svg style="display:none">
-    <!-- Input Interface -->
-    <symbol id="input-interface" viewBox="0 0 300 200">
-      <rect width="300" height="200" fill="#F5F5F5"/>
-      <rect x="20" y="30" width="260" height="30" rx="4" fill="#fff"/>
-      <rect x="20" y="80" width="120" height="30" rx="4" fill="#28A745" opacity="0.2"/>
-      <rect x="160" y="80" width="120" height="30" rx="4" fill="#0056B3" opacity="0.2"/>
-      <text x="150" y="160" text-anchor="middle" fill="#00274D" font-size="14">Sample Input Form</text>
-    </symbol>
-  
-    <!-- Processing Screen -->
-    <symbol id="processing-screen" viewBox="0 0 300 200">
-      <rect width="300" height="200" fill="#F5F5F5"/>
-      <circle cx="150" cy="100" r="40" fill="none" stroke="#0056B3" stroke-width="4">
-        <animate attributeName="stroke-dasharray" values="0 250;250 0" dur="2s" repeatCount="indefinite"/>
-      </circle>
-      <text x="150" y="160" text-anchor="middle" fill="#00274D" font-size="14">Processing Data...</text>
-    </symbol>
-  </svg>
-  <!-- Add to Modal HTML -->
-<div class="preview-modal" id="previewModal">
-    <div class="modal-content">
-      <div class="loader">
-        <div class="spinner"></div>
-      </div>
-      <span class="close-modal">&times;</span>
-      <img class="report-preview" id="modalImage" src="" alt="Detailed preview">
-    </div>
-  </div>
-
-
-     <!-- ending of enhancement html -->
-
+    <!-- Call To Action -->
     <section class="cta">
         <h2>Ready to Transform Your School's Reporting?</h2>
         <p>Join the revolution in academic reporting with TermTrack</p>
         <a href="register.html" class="cta-button">Start For Free</a>
     </section>
+
     <!-- Footer -->
     <footer>
         <div class="footer-content" id="footer-content">
@@ -245,13 +218,20 @@
                     <a href="login.html">Login</a>
                     <a href="privacy.html">Privacy Policy</a>
                 </div>
-                <div class="social-icons">
-                    <a href="#">📘</a>
-                    <a href="#">📷</a>
-                    <a href="#">💼</a>
-                </div>
             </div>
         </div>
+        <hr class="horizontal_rule">
+        <section class="socialcont">
+            <div class="socialcta">
+                <h4>Meet Us on Social Media</h4>
+            </div>
+            <div class="social-icons">
+                <a href="#">📘</a>
+                <a href="#">📷</a>
+                <a href="#">💼</a>
+            </div>
+
+        </section>
     </footer>  
 </body>
 </html>

@@ -1,0 +1,135 @@
+     /* Navigation Bar */
+    .logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+    }
+
+    /*.search-box {
+        flex-grow: 1;
+        max-width: 400px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 4px;
+        padding: 4px 8px;
+    }*/
+
+     .nav {
+        position: fixed; 
+        top: 0; 
+        z-index: 1000;
+        background:var(--dark-navy);
+        width: 100%;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        
+    }
+
+    .nav-logo {
+        font-weight: bold;
+        font-size: 1.5rem;
+        color: var(--softer-gray);
+        text-decoration: none;
+    }
+
+    .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+    }
+
+    .nav-link {
+        color: var(--softer-gray);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+        color: var(--faded-royal-blue );
+    }
+
+    .sign-in-btn {
+        background-color: var(--golden-yellow);
+        /*border: 2px solid var(--royal-blue);*/
+        color: var(--dark-navy);
+        padding: 0.8rem 1rem;
+        margin: 0px;
+        /*border-radius: 4px;*/
+        text-decoration: none;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        
+    }
+    /*#nav_btn{
+        background-color: var(--softer-gray);
+        color: var(--dark-navy);
+        padding: 10px 20px;
+    }*/
+
+    .sign-in-btn:hover {
+        background: #FFD54F;
+        color: var(--dark-navy);
+    }
+
+
+
+    /* List Styling */
+    .list {
+        background: #ebecf0;
+        min-width: 272px;
+        border-radius: 4px;
+        padding: 8px;
+        height: fit-content;
+    }
+
+    .list-header {
+        font-weight: 600;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #f8f8f8;
+    }
+
+    /* Card Styling */
+    .card {
+        background: var(--dark-navy);
+        padding: 8px;
+        margin-bottom: 8px;
+        border-radius: 4px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: transform 0.1s;
+    }
+
+    .card:hover {
+        transform: translateY(-2px);
+        background: #f8f9fa;
+    }
+
+    .add-card {
+        color: #5e6c84;
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .add-card:hover {
+        background: rgba(0,0,0,0.05);
+    }
+
+    /* Color Labels */
+    .card-label {
+        height: 8px;
+        border-radius: 4px;
+        margin-bottom: 4px;
+    }
+
+    .label-green { background: var(--emerald-green); }
+    .label-blue { background: var(--royal-blue); }
+    .label-yellow { background: var(--golden-yellow); }
+
+    /* Navigation Bar code ends here*/
