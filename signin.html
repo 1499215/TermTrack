@@ -1,259 +1,261 @@
+<!--Bismillahirrahmanirrahim-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TermTrack - Secure Access</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="css/nav.css">
-    <link rel="stylesheet" href="css/footer.css">
-    <link rel="stylesheet" href="css/signin.css">
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TermTrack - Secure Access</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/signin.css">
 </head>
 <body>
-    <Section>
-        <nav class="nav">
-            <a href="index.html" class="nav-logo">TermTrack</a>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="#features" class="nav-link">Features</a>
-                <a href="#workflow" class="nav-link">How it Works</a>
-                <a href="#footer-content" class="nav-link">Contact</a>
-                <button class="sign-in-btn">Sign In</button>
-            </div>
-        </nav>
-    </Section>
-    <div class="auth-container">
-        <div class="auth-hero">
-            <h2>Welcome to TermTrack</h2>
-            <p>Join 500+ Ghanaian schools in modern academic management</p>
-            <ul style="margin-top: 2rem; list-style: none;">
-                <li style="margin-bottom: 1rem;">✓ Automated Report Generation</li>
-                <li style="margin-bottom: 1rem;">✓ Secure Academic Records</li>
-                <li>✓ Multi-User Collaboration</li>
-            </ul>
-        </div>
+  <section>
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">TermTrack</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#workflow" class="nav-link">How it Works</a>
+        <a href="#footer-content" class="nav-link">Contact</a>
+        <button class="sign-in-btn">Sign In</button>
+      </div>
+    </nav>
+  </section>
 
-        <div class="auth-content">
-            <div class="auth-switch">
-                <button class="active" onclick="showForm('signin')">Sign In</button>
-                <button onclick="showForm('signup')">Sign Up</button>
-            </div>
-
-            <!-- Sign In Form -->
-            <form id="signin-form" class="auth-form active">
-                <div class="form-group">
-                    <label>School Email</label>
-                    <div class="input-wrapper">
-                        <input type="email" name="email" required>
-                    </div>
-                </div>
-            
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" name="password" id="signin-password" required>
-                        <i class="fas fa-eye password-toggle"></i>
-                    </div>
-                </div>
-            
-                <div class="form-group">
-                    <button type="submit" class="submit-btn">Access Dashboard</button>
-                </div>
-
-                <div class="terms">
-                    <a href="#">Forgot Password?</a>
-                </div>
-
-                <div class="social-auth">
-                    <p>Or continue with</p>
-                    <div class="social-btns">
-                        <div class="social-btn">
-                            <i class="fab fa-google"></i>
-                        </div>
-                        <div class="social-btn">
-                            <i class="fab fa-microsoft"></i>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-            <form id="signup-form" class="auth-form">
-                <div class="form-group">
-                    <label>School Name</label>
-                    <input type="text" name="school_name" required>
-                </div>
-            
-                <div class="form-group">
-                    <label>Admin Email</label>
-                    <input type="email" name="email" required>
-                </div>
-            
-                <div class="form-group">
-                    <label>Create Password</label>
-                    <div class="input-wrapper">
-                        <input type="password" name="password" id="password" required>
-                        <i class="fas fa-eye password-toggle"></i>
-                    </div>
-                    <div class="password-strength">
-                        <div class="strength-bar" id="strength-bar"></div>
-                    </div>
-                </div>
-            
-                <div class="terms">
-                    <label for="terms">I agree to the <a href="#">Terms of Service</a></label>
-                    <input type="checkbox" id="terms" required>
-                </div>
-            
-                <div class="form-group">
-                    <button type="submit" class="submit-btn">Create Account</button>
-                </div>
-            </form>
-        </div>
+  <div class="auth-container">
+    <div class="auth-hero">
+      <h2>Welcome to TermTrack</h2>
+      <p>Join 500+ Ghanaian schools in modern academic management</p>
+      <ul style="margin-top: 2rem; list-style: none;">
+        <li style="margin-bottom: 1rem;">✓ Automated Report Generation</li>
+        <li style="margin-bottom: 1rem;">✓ Secure Academic Records</li>
+        <li>✓ Multi-User Collaboration</li>
+      </ul>
     </div>
 
-    <!---js in main main_script js -->
-    
-    <script>
-        // Centralized API Base URL
-        const API_BASE_URL = 'http://localhost:5000/api';
+    <div class="auth-content">
+      <div class="auth-switch">
+        <button class="active" onclick="showForm('signin')">Sign In</button>
+        <button onclick="showForm('signup')">Sign Up</button>
+      </div>
 
-        // Show Form (Sign In / Sign Up)
-        function showForm(formType) {
-            document.querySelectorAll('.auth-form').forEach(form => {
-                form.classList.remove('active');
-            });
-            document.querySelectorAll('.auth-switch button').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            document.getElementById(`${formType}-form`).classList.add('active');
-            event.target.classList.add('active');
-        }
-
-        // Toggle Password Visibility
-        document.querySelectorAll('.password-toggle').forEach(toggle => {
-            toggle.addEventListener('click', function () {
-                const passwordField = this.previousElementSibling;
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    this.classList.replace('fa-eye', 'fa-eye-slash');
-                } else {
-                    passwordField.type = 'password';
-                    this.classList.replace('fa-eye-slash', 'fa-eye');
-                }
-            });
-        });
-
-        // Password Strength Checker
-        const signupPassword = document.getElementById('password');
-        if (signupPassword) {
-            signupPassword.addEventListener('input', function (e) {
-                const strengthBar = document.getElementById('strength-bar');
-                const password = e.target.value;
-                let strength = 0;
-
-                if (password.match(/[A-Z]/)) strength++;
-                if (password.match(/[0-9]/)) strength++;
-                if (password.match(/[^A-Za-z0-9]/)) strength++;
-                if (password.length >= 8) strength++;
-
-                strengthBar.style.width = `${(strength / 4) * 100}%`;
-                strengthBar.style.background = strength < 2 ? '#ff4444' :
-                    strength < 4 ? '#ffbb33' :
-                        '#00C851';
-            });
-        }
-
-        // Reusable Form Submission Handler
-        function handleFormSubmit(formId, endpoint, successCallback) {
-            document.getElementById(formId).addEventListener('submit', async function (e) {
-                e.preventDefault();
-
-                const formData = {};
-                this.querySelectorAll('input').forEach(input => {
-                    formData[input.name] = input.value;
-                });
-
-                try {
-                    const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify(formData),
-                    });
-
-                    const data = await response.json();
-
-                    if (response.ok) {
-                        successCallback(data);
-                    } else {
-                        alert(`Error: ${data.error}`);
-                    }
-                } catch (error) {
-                    console.error('Error connecting to the server:', error);
-                    alert('Failed to connect to the server.');
-                }
-            });
-        }
-
-        // Handle Sign Up Form Submission
-        handleFormSubmit('signup-form', 'register', () => {
-            alert('Registration successful! Please login.');
-            showForm('signin');
-        });
-
-        // Handle Sign In Form Submission
-        handleFormSubmit('signin-form', 'login', (data) => {
-            localStorage.setItem('token', data.access_token);
-            window.location.href = '/dashboard.html';
-        });
-
-        // Handle Password Reset
-        document.querySelector('.terms a').addEventListener('click', function (e) {
-            e.preventDefault();
-            const email = document.querySelector('#signin-form input[name="email"]').value;
-            if (email) {
-                alert(`Password reset link sent to ${email}`);
-            } else {
-                alert('Please enter your email address first.');
-            }
-        });
-    </script>
-
-
-
-   <!--  end of main js for signin page -->
-
-    <!--Footer -->
-    <footer>
-        <div class="footer-content" id="footer-content">
-            <div class="footer-section">
-                <h3>About TermTrack</h3>
-                <p>Empowering Ghanaian educators through smart automation since 2024</p>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <p>📍 Accra, Ghana</p>
-                <p>📞 +233 55 123 4567</p>
-                <p>📧 support@termtrack.gh</p>
-            </div>
-            <div class="footer-section">
-                <h3>Links</h3>
-                <div class="footer-links">
-                    <a href="#features">Features</a>
-                    <a href="#about">About</a>
-                    <a href="login.html">Login</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                </div>
-                <div class="social-icons">
-                    <a href="#">📘</a>
-                    <a href="#">📷</a>
-                    <a href="#">💼</a>
-                </div>
-            </div>
+      <!-- Sign In Form -->
+      <form id="signin-form" class="auth-form active">
+        <div class="form-group">
+          <label>School Email</label>
+          <div class="input-wrapper">
+            <input type="email" name="email" required>
+          </div>
         </div>
-    </footer>
+
+        <div class="form-group">
+          <label>Password</label>
+          <div class="input-wrapper">
+            <input type="password" name="password" id="signin-password" required>
+            <i class="fas fa-eye password-toggle"></i>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="submit-btn">Access Dashboard</button>
+        </div>
+
+        <div class="terms">
+          <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="social-auth">
+          <p>Or continue with</p>
+          <div class="social-btns">
+            <div class="social-btn"><i class="fab fa-google"></i></div>
+            <div class="social-btn"><i class="fab fa-microsoft"></i></div>
+          </div>
+        </div>
+      </form>
+
+      <!-- Sign Up Form -->
+      <form id="signup-form" class="auth-form">
+        <div class="form-group">
+          <label>School Name</label>
+          <input type="text" name="school_name" required>
+        </div>
+
+        <div class="form-group">
+          <label>Admin Email</label>
+          <input type="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label>Create Password</label>
+          <div class="input-wrapper">
+            <input type="password" name="password" id="password" required>
+            <i class="fas fa-eye password-toggle"></i>
+          </div>
+          <div class="password-strength">
+            <div class="strength-bar" id="strength-bar"></div>
+          </div>
+        </div>
+
+        <div class="terms">
+          <label for="terms">I agree to the <a href="#">Terms of Service</a></label>
+          <input type="checkbox" id="terms" required>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="submit-btn">Create Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main JavaScript -->
+  <script>
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+// Show Sign In or Sign Up form
+function showForm(formType) {
+  document.querySelectorAll('.auth-form').forEach(form => {
+    form.classList.remove('active');
+  });
+  document.querySelectorAll('.auth-switch button').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  document.getElementById(`${formType}-form`).classList.add('active');
+}
+
+// Reusable form handler
+function handleFormSubmit(formId, endpoint, successCallback) {
+  const form = document.getElementById(formId);
+  if (!form) return;
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const formData = {};
+    this.querySelectorAll('input').forEach(input => {
+      if (input.type !== 'checkbox' || input.checked) {
+        formData[input.name] = input.value;
+      }
+    });
+
+    console.log('Submitting form data:', formData);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/${endpoint}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+      console.log('Response received:', response, data);
+
+      if (response.ok) {
+        successCallback(data);
+      } else {
+        console.error('Server responded with an error:', data);
+        alert(`Error: ${data.error || 'Something went wrong'}`);
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+      alert('Failed to connect to the server. Please check your network connection.');
+    }
+  });
+}
+
+// Sign Up
+handleFormSubmit('signup-form', 'register', () => {
+  alert('Registration successful! Please login.');
+  showForm('signin');
+});
+
+// Sign In
+handleFormSubmit('signin-form', 'login', (data) => {
+  if (data.access_token) {
+    localStorage.setItem('token', data.access_token);
+    window.location.href = 'dashboard.html';
+  } else {
+    alert('Login failed. Please try again.');
+  }
+});
+
+// Toggle password visibility
+document.querySelectorAll('.password-toggle').forEach(toggle => {
+  toggle.addEventListener('click', function () {
+    const passwordField = this.previousElementSibling;
+    if (passwordField.type === 'password') {
+      passwordField.type = 'text';
+      this.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+      passwordField.type = 'password';
+      this.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+  });
+});
+
+// Password strength indicator
+const signupPassword = document.getElementById('password');
+if (signupPassword) {
+  signupPassword.addEventListener('input', function (e) {
+    const strengthBar = document.getElementById('strength-bar');
+    const password = e.target.value;
+    let strength = 0;
+
+    if (password.match(/[A-Z]/)) strength++;
+    if (password.match(/[0-9]/)) strength++;
+    if (password.match(/[^A-Za-z0-9]/)) strength++;
+    if (password.length >= 8) strength++;
+
+    strengthBar.style.width = `${(strength / 4) * 100}%`;
+    strengthBar.style.background = strength < 2 ? '#ff4444' :
+                                   strength < 4 ? '#ffbb33' :
+                                   '#00C851';
+  });
+}
+
+// Password reset mock
+document.querySelector('.terms a').addEventListener('click', function (e) {
+  e.preventDefault();
+  const email = document.querySelector('#signin-form input[name="email"]').value;
+  if (email) {
+    alert(`Password reset link sent to ${email}`);
+  } else {
+    alert('Please enter your email address first.');
+  }
+});
+  </script>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-content" id="footer-content">
+      <div class="footer-section">
+        <h3>About TermTrack</h3>
+        <p>Empowering Ghanaian educators through smart automation since 2024</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>📍 Accra, Ghana</p>
+        <p>📞 +233 55 123 4567</p>
+        <p>📧 support@termtrack.gh</p>
+      </div>
+      <div class="footer-section">
+        <h3>Links</h3>
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="#about">About</a>
+          <a href="login.html">Login</a>
+          <a href="privacy.html">Privacy Policy</a>
+        </div>
+        <div class="social-icons">
+          <a href="#">📘</a>
+          <a href="#">📷</a>
+          <a href="#">💼</a>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>
