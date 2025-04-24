@@ -19,12 +19,36 @@ function calculateSchoolDays() {
     const start = new Date(document.getElementById('termResumption').value);
     const end = new Date(document.getElementById('termVacation').value);
     const holidays = parseInt(document.getElementById('holidays').value) || 0;
-    
-    if (!start || !end) return 0;
-    
-    const timeDiff = end - start;
-    const dayCount = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1;
-    return dayCount - holidays;
+
+    if (!start || !end || isNaN(start.getTime()) || isNaN(end.getTime())) {
+        return 0; // Return 0 if dates are invalid
+    }
+
+    // Calculate total days including both resumption and vacation days
+    const totalDays = Math.ceil((end - start) / (1000 * 3600 * 24)) + 1;
+
+    // Count Saturdays and Sundays
+    let weekendCount = 0;
+    for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+        const day = date.getDay();
+        if (day === 0 || day === 6) { // Sunday (0) or Saturday (6)
+            weekendCount++;
+        }
+    }
+
+    // Subtract weekends from total days
+    const schoolDaysWithoutWeekends = totalDays - weekendCount;
+
+    // Validate holidays
+    if (holidays > schoolDaysWithoutWeekends) {
+        alert('Error: Number of public holidays exceeds total school days.');
+        return 0;
+    }
+
+    // Subtract public holidays
+    const finalSchoolDays = schoolDaysWithoutWeekends - holidays;
+
+    return finalSchoolDays;
 }
 
 // Real-time Calculations
@@ -43,7 +67,7 @@ document.querySelectorAll('.calculation-grid input').forEach(input => {
 function updateCalculations() {
     // SBA Calculation
     const sba = parseFloat(document.getElementById('sbaScore').value) || 0;
-    const sbaFinal = (sba/30 * 30).toFixed(2);
+    const sbaFinal = (sba / 30 * 30).toFixed(2);
     document.getElementById('sbaCalculation').textContent = sbaFinal;
 
     // ETA Calculation

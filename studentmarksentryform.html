@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Marks Entry</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .student-marks-entry {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-marks-entry">
+        <h2>Enter Marks for Students</h2>
+
+        <!-- Student Selection -->
+        <div class="form-group">
+            <label for="studentSelect">Select Student:</label>
+            <select id="studentSelect">
+                <option value="1">Nap</option>
+                <option value="2">John</option>
+                <option value="3">Jane</option>
+                <!-- Dynamically load students -->
+            </select>
+        </div>
+
+        <!-- Marks Table -->
+        <table id="marksTable">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Max Marks</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Math</td>
+                    <td><input type="number" class="marks-input" data-max="100"></td>
+                    <td>100</td>
+                </tr>
+                <tr>
+                    <td>English</td>
+                    <td><input type="number" class="marks-input" data-max="100"></td>
+                    <td>100</td>
+                </tr>
+                <!-- Dynamically add more rows -->
+            </tbody>
+        </table>
+
+        <!-- Add Subject Button -->
+        <button id="addSubjectBtn">Add Subject</button>
+
+        <!-- Save Button -->
+        <button id="saveMarksBtn">Save Marks</button>
+    </div>
+
+    <script>
+        // Add a new subject row dynamically
+        document.getElementById('addSubjectBtn').addEventListener('click', function() {
+            const tableBody = document.querySelector('#marksTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="subject-input" placeholder="Subject Name"></td>
+                <td><input type="number" class="marks-input" data-max="100"></td>
+                <td>100</td>
+            `;
+            tableBody.appendChild(newRow);
+        });
+
+        // Save marks and validate inputs
+        document.getElementById('saveMarksBtn').addEventListener('click', function() {
+            const marksInputs = document.querySelectorAll('.marks-input');
+            let allValid = true;
+            const marksData = [];
+
+            marksInputs.forEach(input => {
+                const maxMarks = parseInt(input.dataset.max, 10);
+                const subjectName = input.closest('tr').querySelector('.subject-input')?.value || input.closest('tr').querySelector('td:first-child').textContent;
+                const marks = parseInt(input.value, 10);
+
+                if (marks < 0 || marks > maxMarks || isNaN(marks)) {
+                    allValid = false;
+                    alert(`Marks for ${subjectName} must be between 0 and ${maxMarks}`);
+                    input.value = ''; // Clear invalid input
+                } else {
+                    marksData.push({ subject: subjectName, marks });
+                }
+            });
+
+            if (allValid) {
+                console.log('Marks saved successfully:', marksData);
+                alert('Marks saved successfully!');
+                // Send marksData to the server via an API (e.g., using fetch)
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beginning of Year Input Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .year-input-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="year-input-form">
+        <h2>Beginning of Year Input Form</h2>
+
+        <!-- Class Details -->
+        <div class="form-group">
+            <label for="className">Class Name:</label>
+            <input type="text" id="className" placeholder="e.g., Class 6A">
+        </div>
+
+        <div class="form-group">
+            <label for="classPopulation">Class Population:</label>
+            <input type="number" id="classPopulation" placeholder="e.g., 45">
+        </div>
+
+        <div class="form-group">
+            <label for="yearBegins">Year Begins:</label>
+            <input type="date" id="yearBegins">
+        </div>
+
+        <div class="form-group">
+            <label for="circuit">Circuit:</label>
+            <input type="text" id="circuit" placeholder="e.g., Circuit 5">
+        </div>
+
+        <div class="form-group">
+            <label for="district">District:</label>
+            <input type="text" id="district" placeholder="e.g., Accra District">
+        </div>
+
+        <!-- Subjects Table -->
+        <h3>Subjects</h3>
+        <table id="subjectsTable">
+            <thead>
+                <tr>
+                    <th>Subject Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><input type="text" class="subject-input" placeholder="e.g., Math"></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Add Subject Button -->
+        <button id="addSubjectBtn">Add Subject</button>
+
+        <!-- Save Button -->
+        <button id="saveYearDetailsBtn">Save Year Details</button>
+
+        <hr>
+
+        <!-- Student Details Section -->
+        <h3>Student Details</h3>
+        <div class="form-group">
+            <label for="studentId">Student ID:</label>
+            <input type="text" id="studentId" placeholder="e.g., ST001">
+        </div>
+
+        <div class="form-group">
+            <label for="studentName">Name:</label>
+            <input type="text" id="studentName" placeholder="e.g., John Doe">
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender:</label>
+            <select id="gender">
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="parentNumber">Parent Number:</label>
+            <input type="text" id="parentNumber" placeholder="e.g., 0241234567">
+        </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob">
+        </div>
+
+        <!-- Save Student Button -->
+        <button id="saveStudentBtn">Save Student</button>
+
+        <!-- Students Table -->
+        <h3>Students</h3>
+        <table id="studentsTable">
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Parent Number</th>
+                    <th>Date of Birth</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+
+const API_BASE_URL = 'http://localhost:5000/api';
+        // Add a new subject row dynamically
+        document.getElementById('addSubjectBtn').addEventListener('click', function () {
+            const tableBody = document.querySelector('#subjectsTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td><input type="text" class="subject-input" placeholder="e.g., Science"></td>
+            `;
+            tableBody.appendChild(newRow);
+        });
+
+        // Ensure only one saveStudentBtn listener
+        document.getElementById('saveStudentBtn').addEventListener('click', function () {
+            const studentId = document.getElementById('studentId').value.trim();
+            const studentName = document.getElementById('studentName').value.trim();
+            const gender = document.getElementById('gender').value;
+            const parentNumber = document.getElementById('parentNumber').value.trim();
+            const dob = document.getElementById('dob').value;
+
+            // Validation
+            if (!studentId || !studentName || !gender || !parentNumber || !dob) {
+                alert('Please fill in all fields.');
+                return;
+            }
+            if (isNaN(parentNumber) || parentNumber.length < 10 || parentNumber.length > 12 || !/^\d{10,12}$/.test(parentNumber)) {
+                alert('Parent number must be numeric and 10–12 digits.');
+                return;
+            }
+            if (studentId.length < 4 || studentName.length < 2 || studentName.length > 50) {
+                alert('Check student ID and name length.');
+                return;
+            }
+            const dobDate = new Date(dob);
+            if (dobDate > new Date() || dobDate < new Date('1900-01-01')) {
+                alert('Invalid date of birth.');
+                return;
+            }
+
+            // Add student to the UI table
+            const tableBody = document.querySelector('#studentsTable tbody');
+            const newRow = document.createElement('tr');
+            newRow.innerHTML = `
+                <td>${studentId}</td>
+                <td>${studentName}</td>
+                <td>${gender}</td>
+                <td>${parentNumber}</td>
+                <td>${dob}</td>
+                <td><button class="edit-btn">Edit</button></td>
+            `;
+            tableBody.appendChild(newRow);
+
+            // Clear the form fields
+            document.getElementById('studentId').value = '';
+            document.getElementById('studentName').value = '';
+            document.getElementById('gender').value = 'Male';
+            document.getElementById('parentNumber').value = '';
+            document.getElementById('dob').value = '';
+
+            // Send to backend
+            fetch(`${API_BASE_URL}/save_student`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({
+                    student_id: studentId,
+                    name: studentName,
+                    gender: gender,
+                    parent_number: parentNumber,
+                    dob: dob
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        alert(data.message);
+                    } else {
+                        alert('Error: ' + data.error);
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        });
+
+        // Handle edit functionality (to be implemented later)
+        document.querySelector('#studentsTable').addEventListener('click', function (e) {
+            if (e.target.classList.contains('edit-btn')) {
+                alert('Edit functionality to be implemented.');
+            }
+        });
+
+        
+    // Existing functions (e.g., handleFormSubmit, showForm, etc.)
+
+    // Save Year Details
+    document.getElementById('saveYearDetailsBtn').addEventListener('click', function () {
+        const className = document.getElementById('className').value.trim();
+        const classPopulation = parseInt(document.getElementById('classPopulation').value, 10);
+        const yearBegins = document.getElementById('yearBegins').value;
+        const circuit = document.getElementById('circuit').value.trim();
+        const district = document.getElementById('district').value.trim();
+
+        const subjects = [];
+        document.querySelectorAll('.subject-input').forEach(input => {
+            const subjectName = input.value.trim();
+            if (subjectName) {
+                subjects.push(subjectName);
+            }
+        });
+
+        if (!className || isNaN(classPopulation) || !yearBegins || !circuit || !district || subjects.length === 0) {
+            alert('Please fill in all fields and add at least one subject.');
+            return;
+        }
+
+        fetch('http://localhost:5000/api/save_year_details', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({
+                class_name: className,
+                class_population: classPopulation,
+                year_begins: yearBegins,
+                circuit: circuit,
+                district: district,
+                subjects: subjects
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                } else {
+                    alert('Error: ' + data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }); 
+    
+    
+
+
+    </script>
+</body>
+</html>

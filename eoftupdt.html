@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>End of Term Updates</title>
     <link rel="stylesheet" href="cs/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
     <style>
-    /* Global Styles */
+        /* Global Styles */
         :root {
             --royal-blue: #0056B3;
             --faded-royal-blue: #86c0fd;
@@ -31,84 +31,77 @@
             min-height: 100vh;
             padding-top: 72px;
         }
-        /* end of Global Styles */
-        /* Navigation Bar CSS is moved into nav.css 
-    .exam-data{
-        margin: 0px 8px;
 
-    }*/
-
-    .calculation-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 1.5rem;
-        margin-top: 1rem;
-    }
-    
-    .form-group {
-        margin-bottom: 1rem;
-    }
-    
-    .form-group label {
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-    
-    .calculation-output {
-        display: inline-block;
-        margin-left: 1rem;
-        color: var(--emerald-green);
-        font-weight: bold;
-    }
-    
-    .results-box {
-        padding: 1rem;
-        background: var(--soft-gray);
-        border-radius: 8px;
-        grid-column: 1 / -1;
-    }
-    
-    .student-records {
-        margin-top: 3rem;
-    }
-    
-    #studentsTable {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-    }
-    
-    #studentsTable th,
-    #studentsTable td {
-        padding: 0.75rem;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    
-    #studentsTable th {
-        background: var(--royal-blue);
-        color: white;
-    }
-    
-    .edit-btn {
-        background: var(--golden-yellow);
-        color: var(--dark-navy);
-        padding: 0.3rem 0.8rem;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    
-    .modal {
-        display: none;
-        position: fixed;
-        /* Add remaining modal styles */
+        .calculation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
         
-    }
-    .term-updates{
-        margin: 2rem 5rem;
-    }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .calculation-output {
+            display: inline-block;
+            margin-left: 1rem;
+            color: var(--emerald-green);
+            font-weight: bold;
+        }
+        
+        .results-box {
+            padding: 1rem;
+            background: var(--soft-gray);
+            border-radius: 8px;
+            grid-column: 1 / -1;
+        }
+        
+        .student-records {
+            margin-top: 3rem;
+        }
+        
+        #studentsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        #studentsTable th,
+        #studentsTable td {
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        
+        #studentsTable th {
+            background: var(--royal-blue);
+            color: white;
+        }
+        
+        .edit-btn {
+            background: var(--golden-yellow);
+            color: var(--dark-navy);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            /* Add remaining modal styles */
+        }
+
+        .term-updates {
+            margin: 2rem 5rem;
+        }
     </style>
-    
 </head>
 <body>
     <section class="term-updates">
@@ -126,7 +119,7 @@
                 <!-- ETA Input -->
                 <div class="form-group">
                     <label>ETA Score (70%):</label>
-                    <input type="number" id="etaScore" min="1" max="100" required>
+                    <input type="number" id="etaScore" min="0" max="70" required>
                     <span class="calculation-output" id="etaCalculation">0.00</span>
                 </div>
     
@@ -192,6 +185,86 @@
             </div>
         </div>
     </section>
-    <script src="js/eoftupdt.js"></script>
+
+    <script>
+        let studentCounter = 1;
+        function generateStudentID(classLevel) {
+            const paddedCounter = studentCounter.toString().padStart(5, '0');
+            return `B${classLevel}-${paddedCounter}`;
+        }
+    
+        function calculateProficiency(score) {
+            if (score >= 80) return 'A';
+            if (score >= 75) return 'P';
+            if (score >= 70) return 'AP';
+            if (score >= 65) return 'D';
+            return 'B';
+        }
+    
+        function calculateSchoolDays() {
+            const start = new Date(document.getElementById('termResumption').value);
+            const end = new Date(document.getElementById('termVacation').value);
+            const holidays = parseInt(document.getElementById('holidays').value) || 0;
+    
+            if (!start || !end || isNaN(start.getTime()) || isNaN(end.getTime())) {
+                return 0;
+            }
+    
+            const totalDays = Math.ceil((end - start) / (1000 * 3600 * 24)) + 1;
+    
+            let weekendCount = 0;
+            let currentDate = new Date(start);
+            while (currentDate <= end) {
+                const day = currentDate.getDay();
+                if (day === 0 || day === 6) {
+                    weekendCount++;
+                }
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+    
+            const schoolDaysWithoutWeekends = totalDays - weekendCount;
+    
+            if (holidays > schoolDaysWithoutWeekends) {
+                alert('Error: Number of public holidays exceeds total school days.');
+                return 0;
+            }
+    
+            return schoolDaysWithoutWeekends - holidays;
+        }
+    
+        document.getElementById('sbaScore').addEventListener('input', function (e) {
+            if (this.value < 0 || this.value > 30) {
+                alert('SBA must be between 0 and 30');
+                this.value = ''; // Clear the invalid input
+            }
+        });
+    
+        document.getElementById('etaScore').addEventListener('input', function (e) {
+            if (this.value < 0 || this.value > 100) {
+                alert('ETA must be between 0 and 100');
+                this.value = ''; // Clear the invalid input
+            }
+        });
+    
+        document.querySelectorAll('.calculation-grid input').forEach(input => {
+            input.addEventListener('input', updateCalculations);
+        });
+    
+        function updateCalculations() {
+            const sba = parseFloat(document.getElementById('sbaScore').value) || 0;
+            const sbaFinal = (sba / 30 * 30).toFixed(2);
+            document.getElementById('sbaCalculation').textContent = sbaFinal;
+    
+            const eta = parseFloat(document.getElementById('etaScore').value) || 0;
+            const etaFinal = (eta * 0.7).toFixed(2);
+            document.getElementById('etaCalculation').textContent = etaFinal;
+    
+            const totalScore = parseFloat(sbaFinal) + parseFloat(etaFinal);
+            document.getElementById('finalScore').textContent = `${totalScore.toFixed(2)}%`;
+            document.getElementById('proficiencyLevel').textContent = calculateProficiency(totalScore);
+    
+            document.getElementById('totalSchoolDays').textContent = calculateSchoolDays();
+        }
+    </script>
 </body>
 </html>
