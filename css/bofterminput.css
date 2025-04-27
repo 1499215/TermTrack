@@ -1,0 +1,57 @@
+:root {
+    --royal-blue: #0056B3;
+    --faded-royal-blue: #86c0fd;
+    --emerald-green: #28A745;
+    --golden-yellow: #FFC107;
+    --softer-gray: #F8F8F8;
+    --dark-navy: #00274D;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+.year-input-form {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f4f4f4;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: var(--dark-navy);
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: var(--royal-blue);
+}
+
+
+
+.studentBioData{
+    margin: 3em;
+}
